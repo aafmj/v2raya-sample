@@ -1,0 +1,23 @@
+#https://hub.docker.com/r/mzz2017/v2raya
+
+# socks5: 20170
+# http: 20171
+# you can bind these ports both on localhost or public ip in the panel itself.
+
+services:
+  v2raya:
+    image: mzz2017/v2raya:v2.2.5.8
+    privileged: true
+    network_mode: host
+    restart: always
+    environment:
+      - V2RAYA_LOG_FILE=/tmp/v2raya.log
+      - V2RAYA_V2RAY_BIN=/usr/local/bin/v2ray
+      - V2RAYA_NFTABLES_SUPPORT=off
+      - IPTABLES_MODE=legacy
+      #- V2RAYA_ADDRESS=127.0.0.1:2017
+    volumes:
+      #- /lib/modules:/lib/modules:ro
+      #- /etc/resolv.conf:/etc/resolv.conf
+      - ./storage/config:/etc/v2raya
+      - ./storage/logs/v2raya.log:/tmp/v2raya.log
